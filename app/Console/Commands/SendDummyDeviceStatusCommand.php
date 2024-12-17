@@ -27,8 +27,12 @@ class SendDummyDeviceStatusCommand extends Command
      */
     public function handle()
     {
-        $uid = $this->ask('What is your device UID to begin seeding data dummy?');
+        $uid = $this->argument('uid');
         $device = Device::where('uid', $uid)->first();
+
+        if (!$device) {
+            $device = Device::first();
+        }
 
         if ($device) {
             $status = $device->statuses()->create([
