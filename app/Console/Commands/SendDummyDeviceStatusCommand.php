@@ -13,7 +13,7 @@ class SendDummyDeviceStatusCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:send-dummy-device-status-command';
+    protected $signature = 'app:send-dummy-device-status-command {uid}';
 
     /**
      * The console command description.
@@ -27,7 +27,8 @@ class SendDummyDeviceStatusCommand extends Command
      */
     public function handle()
     {
-        $device = Device::first();
+        $uid = $this->ask('What is your device UID to begin seeding data dummy?');
+        $device = Device::where('uid', $uid)->first();
 
         if ($device) {
             $status = $device->statuses()->create([
