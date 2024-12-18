@@ -38,8 +38,8 @@ class AppPanelProvider extends PanelProvider
     {
         $panel
             ->default()
-            ->id('app')
-            ->path('app')
+            ->id('admin')
+            ->path('admin')
             ->login()
             ->registration()
             ->passwordReset()
