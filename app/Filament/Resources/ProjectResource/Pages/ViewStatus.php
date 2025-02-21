@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\DeviceResource\Pages;
+namespace App\Filament\Resources\ProjectResource\Pages;
 
 use App\Filament\Resources\DeviceResource;
 use App\Filament\Widgets\DeviceBatteryTrendChart;

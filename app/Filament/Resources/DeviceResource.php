@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceResource\Pages;
 use App\Filament\Resources\DeviceResource\RelationManagers;
+use App\Filament\Resources\ProjectResource\Pages\ViewStatus;
 use App\Models\Device;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -86,7 +87,7 @@ class DeviceResource extends Resource
             'create' => Pages\CreateDevice::route('/create'),
             'view' => Pages\ViewDevice::route('/{record}'),
             'edit' => Pages\EditDevice::route('/{record}/edit'),
-            'status' => Pages\ViewStatus::route('/{record}/status'),
+            'status' => ViewStatus::route('/{record}/status'),
             'history' => Pages\ViewStatusDetail::route('/{record}/history'),
         ];
     }
