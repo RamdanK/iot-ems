@@ -22,6 +22,7 @@ class UpdateDeviceStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'serialNumber' => 'string|required',
             'voltage1' => 'numeric',
             'current1' => 'numeric',
             'power1' => 'numeric',

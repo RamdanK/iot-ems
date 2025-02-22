@@ -11,8 +11,9 @@ class UpdateDeviceStatusController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(UpdateDeviceStatusRequest $request, Device $device)
+    public function __invoke(UpdateDeviceStatusRequest $request)
     {
+        $device = Device::where('uid', $request->input('serialNumber'))->first();
         if (!$device) {
             return $this->respondNotFound('Device not found!');
         }
