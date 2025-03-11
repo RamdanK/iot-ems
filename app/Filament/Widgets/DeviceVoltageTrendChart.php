@@ -40,7 +40,9 @@ class DeviceVoltageTrendChart extends ApexChartWidget
 
     public function mount(): void
     {
-        $this->getData();
+        if ($this->deviceId) {
+            $this->getData();
+        }
 
         parent::mount();
     }

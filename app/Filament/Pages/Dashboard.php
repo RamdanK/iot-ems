@@ -19,10 +19,10 @@ class Dashboard extends \Filament\Pages\Dashboard
 
     public function getWidgetData(): array
     {
-        $device = Device::where('uid', '7d06cfe7-5eaf-4151-8b86-ce97b08896b2')->first();
+        $device = Device::query()->inRandomOrder()->first();
 
         return [
-            'deviceId' => $device->id,
+            'deviceId' => $device?->id,
         ];
     }
 
