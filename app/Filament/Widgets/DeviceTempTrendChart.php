@@ -26,10 +26,12 @@ class DeviceTempTrendChart extends ApexChartWidget
      */
     protected static ?string $heading = 'Temperature Level Trend';
 
-    public $deviceId;
+    public string $deviceId;
 
     public array $data = [
-        'data' => [],
+        'data' => [
+            ['name' => 'Temperatur', 'data' => []],
+        ],
         'labels' => [],
     ];
 
@@ -52,8 +54,19 @@ class DeviceTempTrendChart extends ApexChartWidget
         $data1 = $event['deviceStatus']['temp'];
         $date = $event['deviceStatus']['created_at'];
 
-        $this->data['data'][0]['data'][] = $data1;
-        $this->data['labels'][] = $date;
+        $data1Stream = $this->data['data'][0]['data'];
+        $labels = $this->data['labels'];
+
+        if (count($this->data['labels']) > 100) {
+            array_shift($data1Stream);
+            array_shift($labels);
+        }
+
+        array_push($data1Stream, $data1);
+        array_push($labels, $date);
+
+        $this->data['data'][0]['data'] = $data1Stream;
+        $this->data['labels'] = $labels;
 
         $this->updateOptions();
     }
@@ -65,10 +78,10 @@ class DeviceTempTrendChart extends ApexChartWidget
             $this->data['data'] = [
                 [
                     'name' => 'Temperature',
-                    'data' => $data->map(fn (DeviceStatus $value) => (float) $value->temp),
+                    'data' => $data->map(fn (DeviceStatus $value) => (float) $value->temp)->toArray(),
                 ],
             ];
-            $this->data['labels'] = $data->map(fn (DeviceStatus $value) => $value->created_at);
+            $this->data['labels'] = $data->map(fn (DeviceStatus $value) => $value->created_at)->toArray();
         }
     }
 

@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DeviceMatrixService
 {
-    public static function getDeviceTrend($deviceId, array $column = ['*'], $start = null, $end = null): Collection
+    public static function getDeviceTrend(string $deviceId, array $column = ['*'], $start = null, $end = null): Collection
     {
         $startDate = $start ?? now()->startOfDay();
         $endDate = $end ?? now()->endOfDay();
         $data = DeviceStatus::query()
             ->select($column)
-            ->where('device_id', $deviceId)
+            ->where('device_id', (string) $deviceId)
             ->whereBetween('created_at', [$startDate, $endDate])->get();
 
         return $data;

@@ -26,10 +26,13 @@ class DeviceFrequencyTrendChart extends ApexChartWidget
      */
     protected static ?string $heading = 'Frequency Trend';
 
-    public $deviceId;
+    public string $deviceId;
 
     public array $data = [
-        'data' => [],
+        'data' => [
+            ['name' => 'Frequency 1', 'data' => []],
+            ['name' => 'Frequency 2', 'data' => []],
+        ],
         'labels' => [],
     ];
 
@@ -53,9 +56,23 @@ class DeviceFrequencyTrendChart extends ApexChartWidget
         $data2 = $event['deviceStatus']['freq2'];
         $date = $event['deviceStatus']['created_at'];
 
-        $this->data['data'][0]['data'][] = $data1;
-        $this->data['data'][1]['data'][] = $data2;
-        $this->data['labels'][] = $date;
+        $data1Stream = $this->data['data'][0]['data'];
+        $data2Stream = $this->data['data'][1]['data'];
+        $labels = $this->data['labels'];
+
+        if (count($labels) > 100) {
+            array_shift($data1Stream);
+            array_shift($data2Stream);
+            array_shift($labels);
+        }
+
+        array_push($data1Stream, $data1);
+        array_push($data2Stream, $data2);
+        array_push($labels, $date);
+
+        $this->data['data'][0]['data'] = $data1Stream;
+        $this->data['data'][1]['data'] = $data2Stream;
+        $this->data['labels'] = $labels;
 
         $this->updateOptions();
     }
@@ -67,14 +84,14 @@ class DeviceFrequencyTrendChart extends ApexChartWidget
             $this->data['data'] = [
                 [
                     'name' => 'Frequency 1',
-                    'data' => $data->map(fn(DeviceStatus $value) => (float) $value->freq1),
+                    'data' => $data->map(fn(DeviceStatus $value) => (float) $value->freq1)->toArray(),
                 ],
                 [
                     'name' => 'Frequency 2',
-                    'data' => $data->map(fn(DeviceStatus $value) => (float) $value->freq2),
+                    'data' => $data->map(fn(DeviceStatus $value) => (float) $value->freq2)->toArray(),
                 ],
             ];
-            $this->data['labels'] = $data->map(fn(DeviceStatus $value) => $value->created_at);
+            $this->data['labels'] = $data->map(fn(DeviceStatus $value) => $value->created_at)->toArray();
         }
     }
 
