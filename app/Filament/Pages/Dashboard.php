@@ -2,8 +2,6 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Widgets;
-
 use App\Filament\Widgets\DeviceBatteryTrendChart;
 use App\Filament\Widgets\DeviceCurrentTrendChart;
 use App\Filament\Widgets\DeviceEnergyTrendChart;
@@ -13,16 +11,28 @@ use App\Filament\Widgets\DevicePowerTrendChart;
 use App\Filament\Widgets\DeviceTempTrendChart;
 use App\Filament\Widgets\DeviceVoltageTrendChart;
 use App\Models\Device;
+use Illuminate\Contracts\Support\Htmlable;
 
 class Dashboard extends \Filament\Pages\Dashboard
 {
+    public function mount(): void
+    {
+        $this->device = Device::query()->with(['project'])->inRandomOrder()->first();
+    }
+
+    protected Device|null $device = null;
+
+    public function getTitle(): string|Htmlable
+    {
+        $deviceName = $this->device ? ' - Device: '.$this->device->name : '';
+        $title = static::$title ?? __('filament-panels::pages/dashboard.title');
+        return $title.$deviceName.' ('.$this->device?->project?->name.')';
+    }
 
     public function getWidgetData(): array
     {
-        $device = Device::query()->inRandomOrder()->first();
-
         return [
-            'deviceId' => $device?->id,
+            'deviceId' => $this->device?->id,
         ];
     }
 
