@@ -10,6 +10,7 @@ use App\Filament\Widgets\DevicePfTrendChart;
 use App\Filament\Widgets\DevicePowerTrendChart;
 use App\Filament\Widgets\DeviceTempTrendChart;
 use App\Filament\Widgets\DeviceVoltageTrendChart;
+use App\Livewire\RelayStatus;
 use App\Models\Device;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -39,6 +40,7 @@ class Dashboard extends \Filament\Pages\Dashboard
     public function getWidgets(): array
     {
         return [
+            RelayStatus::class,
             DeviceVoltageTrendChart::class,
             DeviceCurrentTrendChart::class,
             DevicePowerTrendChart::class,

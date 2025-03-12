@@ -47,4 +47,9 @@ class Device extends Model
     {
         return $this->hasMany(DeviceStatus::class);
     }
+
+    public function metric(): Model | null
+    {
+        return $this->statuses()->latest()->first();
+    }
 }

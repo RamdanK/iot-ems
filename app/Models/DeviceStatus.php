@@ -24,6 +24,10 @@ class DeviceStatus extends Model
         'pf2',
         'temp',
         'battery',
+        'relay1',
+        'relay2',
+        'relay3',
+        'relay4',
     ];
 
     protected function casts(): array
@@ -43,6 +47,10 @@ class DeviceStatus extends Model
             'pf2' => 'decimal:2',
             'temp' => 'decimal:2',
             'battery' => 'decimal:2',
+            'relay1' => 'boolean',
+            'relay2' => 'boolean',
+            'relay3' => 'boolean',
+            'relay4' => 'boolean',
         ];
     }
 }

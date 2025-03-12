@@ -11,6 +11,7 @@ use App\Filament\Widgets\DevicePfTrendChart;
 use App\Filament\Widgets\DevicePowerTrendChart;
 use App\Filament\Widgets\DeviceTempTrendChart;
 use App\Filament\Widgets\DeviceVoltageTrendChart;
+use App\Livewire\RelayStatus;
 use App\Models\Device;
 use Filament\Actions;
 use Filament\Infolists\Infolist;
@@ -77,6 +78,7 @@ class ViewStatus extends Page
     protected function getHeaderWidgets(): array
     {
         return [
+            RelayStatus::class,
             DeviceVoltageTrendChart::class,
             DeviceCurrentTrendChart::class,
             DevicePowerTrendChart::class,

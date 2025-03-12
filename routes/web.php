@@ -15,7 +15,7 @@ use Laravel\Jetstream\Http\Controllers\TeamInvitationController;
 |
 */
 
-Route::get('/', fn () => view('welcome'));
+Route::redirect('/', '/admin/login');
 
 Route::redirect('/login', '/admin/login')->name('login');
 

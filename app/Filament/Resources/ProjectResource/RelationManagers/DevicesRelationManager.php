@@ -27,10 +27,22 @@ class DevicesRelationManager extends RelationManager
                     ->required()
                     ->unique('devices', 'uid', ignoreRecord: true)
                     ->maxLength(255),
-                Forms\Components\TextInput::make('type')
+                    Forms\Components\Select::make('type')
+                    ->options([
+                        'esp32' => 'ESP32',
+                        'relay' => 'Relay',
+                        'server' => 'Server',
+                        'switch' => 'Switch',
+                        'router' => 'Router',
+                        'firewall' => 'Firewall',
+                        'ups' => 'UPS',
+                        'printer' => 'Printer',
+                        'storage' => 'Storage',
+                        'camera' => 'Camera',
+                        'other' => 'Other',
+                    ])
                     ->label('Device Type')
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->label('Device Name')
                     ->required()
